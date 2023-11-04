@@ -1,8 +1,9 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { ArrowRight, Facebook, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +17,7 @@ export default function Home() {
         <p className="text-left text-lg text-mute-foreground">
           Welcome to my personal hashnote for everything I &apos;ve learned.
         </p>
-        <div className="flex gap-3 w-full">
+        {/* <div className="flex gap-3 w-full">
           <button className="rounded-full bg-primary-700 text-white p-1.5">
             <Facebook size={20}/>
           </button>
@@ -29,7 +30,7 @@ export default function Home() {
           <button className="rounded-full bg-primary-700 text-white p-1.5">
             <Mail size={20}/>
           </button>
-        </div>
+        </div> */}
       </div>
       <Separator className="my-8"/>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8 gap-y-10">
@@ -49,7 +50,10 @@ export default function Home() {
               >
                 This is my first blog
               </h3>
-              <div className="flex gap-2">
+
+              <p className="text-sm text-mute-foreground">2 Jan, 2023</p>
+              <p className="line-clamp-2 text-sm text-mute-foreground">Flow is now available for Apple Watch. Today we’re talking about our latest updates, the release of Flow for Apple Watch, and what’s next.</p>
+              <div className="flex gap-2 flex-wrap">
                 <Badge>
                   Frontend
                 </Badge>
@@ -59,9 +63,13 @@ export default function Home() {
                 <Badge variant="warning">
                   Engineer
                 </Badge>
+                <Badge variant="warning">
+                  Engineer
+                </Badge>
+                <Badge variant="warning">
+                  Engineer
+                </Badge>
               </div>
-              <p className="text-sm text-mute-foreground">2 Jan, 2023</p>
-              <p className="line-clamp-2 text-sm text-mute-foreground">Flow is now available for Apple Watch. Today we’re talking about our latest updates, the release of Flow for Apple Watch, and what’s next.</p>
               <Link href="/" className="flex gap-1 items-center text-sm font-medium text-primary-700 hover:gap-2 transition-all">
                 Read more <ArrowRight size={12} className="translate-y-px"/>
               </Link>
@@ -69,11 +77,22 @@ export default function Home() {
           </button>
         ))}
       </div>
-      <div className="mt-10 flex justify-end">
+      <div className="my-10 flex justify-end">
         <Link href="/" className="inline-flex items-center gap-2 text-primary-700">
           See all posts
           <ArrowRight size={12}/>
         </Link>
+      </div>
+      <div className="max-w-sm m-auto space-y-2">
+        <h3 className="font-semibold tracking-tight">
+          Subscribe to the newsletter
+        </h3>
+        <div className="flex gap-2">
+          <Input placeholder="Enter your email"/>
+          <Button>
+            Signup
+          </Button>
+        </div>
       </div>
     </div>
   )

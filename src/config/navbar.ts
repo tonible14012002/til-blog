@@ -17,4 +17,8 @@ export const NAVBAR_ROUTES = [
         name: "Project",
         path: ROUTES.PROJECT,
     },
+    {
+        name: "Til",
+        path: ROUTES.TIL
+    }
 ];

@@ -16,11 +16,11 @@ export const Header = () => {
 
     return (
         <div className="container flex justify-between items-center h-full">
-            <Link className="text-left flex gap-2 items-center text-2xl font-bold tracking-tighter"
+            <Link className="text-left flex gap-2 items-center text-xl md:text-2xl font-bold tracking-tighter"
                 href={ROUTES.HOME}
             >
                 <Avatar>
-                    <AvatarImage src="avatar.jpg"/>
+                    <AvatarImage src="/avatar.jpg"/>
                 </Avatar>
                 <h3>MAROON TIL</h3>
             </Link>

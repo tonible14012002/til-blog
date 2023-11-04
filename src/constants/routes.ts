@@ -5,4 +5,5 @@ export const ROUTES = {
     BLOG: '/blog',
     TAG: '/tag',
     PROJECT: '/project',
+    TIL: '/til'
 }
