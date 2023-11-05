@@ -1,12 +1,17 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import { Inter } from 'next/font/google'
 import { Layout as DefaultLayout } from '@/components/common/Layout'
 import { UnderConstructModal } from '@/components/common/UnderConstructModal/UnderConstructModal'
-const inter = Inter({ subsets: ['latin'] })
+import { Inter as FontSans } from 'next/font/google'
+
+export const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans'
+})
+
 
 const TopProgressBar = dynamic(() => import('@/components/common/Layout/Nprogress'), {
   ssr: false,

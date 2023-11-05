@@ -1,4 +1,4 @@
-import { useMDXComponent } from "next-contentlayer/hooks"
+import { BlogWrapper } from "@/components/Blog/BlogWrapper"
 import { allBlogs } from "contentlayer/generated"
 import type { Blog } from "contentlayer/generated"
 
@@ -10,8 +10,13 @@ export default function BlogPost (props: BlogPostProps) {
     const { blog } = props
 
     return (
-        <div className="prose"
-            dangerouslySetInnerHTML={{__html: blog.body.html}}
+        <BlogWrapper
+            title={blog.title}
+            tags={blog.tags}
+            cover={blog.cover}
+            publishedAt={blog.publishedAt}
+            content={blog.body.html}
+            readingTime={blog.readingTime}
         />
     )
 }

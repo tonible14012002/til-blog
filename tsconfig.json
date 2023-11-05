@@ -31,7 +31,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".contentlayer/generated"
-  ],
+, "src/scripts/utils.js"  ],
   "exclude": [
     "node_modules"
   ]

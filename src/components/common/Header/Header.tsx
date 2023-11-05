@@ -16,17 +16,17 @@ export const Header = () => {
 
     return (
         <div className="container flex justify-between items-center h-full">
-            <Link className="text-left flex gap-2 items-center text-xl md:text-2xl font-bold tracking-tighter"
+            <Link className="text-left flex gap-3 text-lg items-center font-extrabold"
                 href={ROUTES.HOME}
             >
                 <Avatar>
                     <AvatarImage src="/avatar.jpg"/>
                 </Avatar>
-                <h3>MAROON TIL</h3>
+                <p>Nam Anh</p>
             </Link>
             <div className="">
                 {NAVBAR_ROUTES.map((props) => (
-                    <Link  key={props.name} href={props.path}>
+                    <Link key={props.name} href={props.path}>
                         <Button variant="link"
                             className={clsx({
                                 "text-primary-700": pathname === props.path

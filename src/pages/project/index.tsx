@@ -1,7 +1,6 @@
 import { UnderConstructAlert } from "@/components/common/UnderConstructAlert/UnderConstructAlert";
 
-
-export default function About () {
+export default function ProjectPage () {
     return (
         <div>
             <UnderConstructAlert/>

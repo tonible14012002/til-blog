@@ -6,6 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './node_modules/pliny/**/*.js',
 	],
   theme: {
     container: {
@@ -15,10 +16,17 @@ module.exports = {
         DEFAULT: "1rem"
       },
       screens: {
-        layout: "1024px"
+        layout: "1024px",
+        blog: "720px"
       },
     },
     extend: {
+      width: {
+        blog: "720px"
+      },
+      maxWidth: {
+        blog: "720px"
+      },
       colors: {
         background:"#fffcfa",
         mute: {
@@ -108,6 +116,147 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '100%'
+          }
+        }
+      }
+      // typography: {
+      //   DEFAULT: {
+      //     css: {
+      //       color: 'rgba(0,0,0)',
+      //       maxWidth: '100%',
+      //       'h1': {
+      //         fontSize: '2.25rem',
+      //         fontWeight: '800',
+      //         letterSpacing: '-0.025em',
+      //         scrollMargin: '5rem',
+      //         marginTop: '2rem'
+      //       },
+      //       'h2': {
+      //         borderBottomWidth: '1px',
+      //         paddingBottom: '0.5rem',
+      //         fontSize: '1.875rem',
+      //         fontWeight: '700',
+      //         scrollMargin: '5rem',
+      //         marginTop: '2rem'
+      //       },
+      //       'h3': {
+      //         fontSize: '1.5rem',
+      //         fontWeight: '600',
+      //         letterSpacing: '-0.025em',
+      //         scrollMargin: '5rem',
+      //         marginTop: '2rem'
+      //       },
+      //       'h4': {
+      //         fontSize: '1.25rem',
+      //         fontWeight: '600',
+      //         letterSpacing: '-0.025em',
+      //         scrollMargin: '5rem',
+      //         marginTop: '2rem'
+      //       },
+      //       'h5': {
+      //         fontSize: '1.125rem',
+      //         fontWeight: '500',
+      //         letterSpacing: '-0.025em',
+      //         scrollMargin: '5rem',
+      //         marginTop: '2rem'
+      //       },
+      //       'h6': {
+      //         fontSize: '1rem',
+      //         fontWeight: '500',
+      //         scrollMargin: '5rem',
+      //         marginTop: '2rem'
+      //       },
+      //       'a': {
+      //         fontWeight: '500',
+      //         textDecoration: 'underline',
+      //         '--tw-underline-offset': '0.25rem',
+      //       },
+      //       'p': {
+      //         lineHeight: '1.75',
+      //         '&:not(:first-child)': {
+      //         },
+      //       },
+      //       'ul': {
+      //         marginLeft: '1rem',
+      //         listStyleType: 'disc',
+      //       },
+      //       'ol': {
+      //         marginLeft: '1.5rem',
+      //         listStyleType: 'decimal',
+      //       },
+      //       'li': {
+      //       },
+      //       'blockquote': {
+      //         borderLeftWidth: '2px',
+      //         paddingLeft: '1rem',
+      //         fontStyle: 'italic',
+      //         '& > *': {
+      //           color: 'rgba(0,0,0,.6)',
+      //         },
+      //       },
+      //       'img': {
+      //         borderRadius: '0.375rem',
+      //         borderWidth: '1px',
+      //       },
+      //       'hr': {
+      //         '@screen md': {
+      //         },
+      //       },
+      //       'table': {
+      //         width: '100%',
+      //         overflowY: 'auto',
+      //       },
+      //       'tr': {
+      //         margin: 0,
+      //         borderTopWidth: '1px',
+      //         padding: 0,
+      //         backgroundColor: 'rgba(0,0,0,.03)',
+      //       },
+      //       'th': {
+      //         border: '1px solid #e2e8f0',
+      //         padding: '0.75rem',
+      //         textAlign: 'left',
+      //         fontWeight: '600',
+      //         '&[align=center]': {
+      //           textAlign: 'center',
+      //         },
+      //         '&[align=right]': {
+      //           textAlign: 'right',
+      //         },
+      //       },
+      //       'td': {
+      //         border: '1px solid #e2e8f0',
+      //         padding: '0.75rem',
+      //         textAlign: 'left',
+      //         '&[align=center]': {
+      //           textAlign: 'center',
+      //         },
+      //         '&[align=right]': {
+      //           textAlign: 'right',
+      //         },
+      //       },
+      //       'pre': {
+      //         overflowX: 'auto',
+      //         borderRadius: '0.5rem',
+      //         border: '1px solid #e2e8f0',
+      //         backgroundColor: '#000',
+      //         padding: '1rem',
+      //       },
+      //       'code': {
+      //         position: 'relative',
+      //         borderRadius: '0.25rem',
+      //         border: '1px solid #e2e8f0',
+      //         padding: '0.3rem',
+      //         fontSize: '0.875rem',
+      //         fontFamily: 'Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace',
+      //       },
+      //     },
+      //   },
+      // }, 
     },
   },
   plugins: [

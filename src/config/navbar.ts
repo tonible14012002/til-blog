@@ -2,10 +2,6 @@ import { ROUTES } from "@/constants/routes";
 
 export const NAVBAR_ROUTES = [
     {
-        name: "Home",
-        path: "/",
-    },
-    {
         name: "About",
         path: ROUTES.ABOUT,
     },
