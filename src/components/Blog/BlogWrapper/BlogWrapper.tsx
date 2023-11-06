@@ -2,8 +2,9 @@ import { format } from "date-fns"
 import { BlogTag } from "../BlogTag"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import Image from "next/image"
-import { Separator } from "@radix-ui/react-separator"
 import { Dot } from "lucide-react"
+import { MDX } from "contentlayer/core"
+import { useMDXComponent } from 'next-contentlayer/hooks'
 
 
 interface  BlogWrapperProps {
@@ -11,14 +12,15 @@ interface  BlogWrapperProps {
     title: string
     cover: string
     tags: string[]
-    content: string | TrustedHTML
+    mdx: MDX
     readingTime: {
         text: string
     }
 }
 
 export const BlogWrapper = (props: BlogWrapperProps) => {
-    const { title, publishedAt, content, tags, readingTime, cover } = props
+    const { title, publishedAt, mdx, tags, readingTime, cover } = props
+    const MDXContent = useMDXComponent(mdx.code)
     return (
         <div className="mt-8 container max-w-blog mx-auto">
             <div className="space-y-2">
@@ -48,11 +50,9 @@ export const BlogWrapper = (props: BlogWrapperProps) => {
                 />
                 </AspectRatio>
             </div>
-            <div className="lg:prose prose-sm mt-8"
-                dangerouslySetInnerHTML={{
-                    __html: content
-                }}
-            />
+            <div className="lg:prose prose-sm mt-8">
+                <MDXContent/>
+            </div>
         </div>
     )
 }

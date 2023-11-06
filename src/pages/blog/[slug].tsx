@@ -8,14 +8,13 @@ interface BlogPostProps {
 
 export default function BlogPost (props: BlogPostProps) {
     const { blog } = props
-
     return (
         <BlogWrapper
             title={blog.title}
             tags={blog.tags}
             cover={blog.cover}
             publishedAt={blog.publishedAt}
-            content={blog.body.html}
+            mdx={blog.body}
             readingTime={blog.readingTime}
         />
     )

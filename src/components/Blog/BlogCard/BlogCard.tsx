@@ -16,7 +16,7 @@ export const BlogCard = (props: BlogCardProps) => {
 
   return (
       <div className="text-left flex flex-col">
-        <AspectRatio ratio={ 16 / 9 } className="rounded-lg overflow-hidden">
+        <AspectRatio ratio={ 16 / 9 } className="rounded-lg overflow-hidden border">
           <Image
             alt="random"
             src={cover}
