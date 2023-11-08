@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Dot } from "lucide-react"
 import { MDX } from "contentlayer/core"
 import { useMDXComponent } from 'next-contentlayer/hooks'
+import { Mdx } from "@/components/ui/mdx-component"
 
 
 interface  BlogWrapperProps {
@@ -20,9 +21,8 @@ interface  BlogWrapperProps {
 
 export const BlogWrapper = (props: BlogWrapperProps) => {
     const { title, publishedAt, mdx, tags, readingTime, cover } = props
-    const MDXContent = useMDXComponent(mdx.code)
     return (
-        <div className="mt-8 container max-w-blog mx-auto">
+        <div className="mt-8 sm:w-blog mx-auto">
             <div className="space-y-2">
                 <div className="flex gap-0.5 text-mute-foreground ">
                     <p className="w-fit text-sm lg:text-base">Published at {format(new Date(publishedAt), "MMM dd, yyyy")}</p>
@@ -41,17 +41,17 @@ export const BlogWrapper = (props: BlogWrapperProps) => {
                 </div>
             </div>
             <div className="mt-8">
-                <AspectRatio ratio={ 16 / 9 } className="rounded-lg overflow-hidden">
+                <AspectRatio ratio={ 16 / 9 } className="rounded-lg overflow-hidden border">
                 <Image
                     alt="random"
                     src={cover}
                     fill
-                    className="w-full h-full object-cover hover:scale-105 transition bg-neutral-200"
+                    className="w-full h-full object-cover hover:scale-105 transition bg-neutral-400"
                 />
                 </AspectRatio>
             </div>
             <div className="lg:prose prose-sm mt-8">
-                <MDXContent/>
+                <Mdx code={mdx.code}/>
             </div>
         </div>
     )

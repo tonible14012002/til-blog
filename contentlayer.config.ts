@@ -16,7 +16,30 @@ export const Blog = defineDocumentType(() => ({
     publishedAt: { type: 'string', required: true },
     description: { type: 'string', required: true },
     cover: { type: 'string', required: true },
-    tags: { type: 'list', of: {type: 'string'} , required: true},
+    tags: { type: 'list', of: {type: 'string'} , required: true}
+  },
+  computedFields: {
+    readingTime: {
+      type: 'json',
+      resolve: (doc) => readingTime(doc.body.raw)
+    },
+    slug: {
+      type: 'string',
+      resolve: (doc) => doc._raw.sourceFileName.replace('.mdx', ''),
+    },
+  },
+}))
+
+export const Til = defineDocumentType(() => ({
+  name: 'Til',
+  filePathPattern: 'tils/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    title: { type: 'string', required: true },
+    publishedAt: { type: 'string', required: true },
+    description: { type: 'string', required: true },
+    cover: { type: 'string', required: true },
+    tags: { type: 'list', of: {type: 'string'} , required: true}
   },
   computedFields: {
     readingTime: {
@@ -50,7 +73,7 @@ function createTagCount(allBlogs: any[]) {
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog],
+  documentTypes: [Blog, Til],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

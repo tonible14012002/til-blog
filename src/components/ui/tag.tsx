@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const tagVariants = cva(
-  "uppercase font-extrabold tracking-tight focus:outline-none hover:underline",
+  "uppercase font-extrabold tracking-tighter focus:outline-none hover:underline",
   {
     variants: {
       variant: {

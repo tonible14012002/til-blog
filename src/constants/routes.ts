@@ -7,5 +7,6 @@ export const ROUTES = {
     PROJECT: '/project',
     TIL: '/til',
     COMPONENTS: '/components',
-    BLOG_POST: (slug: string) => `/blog/${slug}`
+    BLOG_POST: (slug: string) => `/blog/${slug}`,
+    TIL_POST: (slug: string) => `/til/${slug}`
 }

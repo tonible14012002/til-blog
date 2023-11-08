@@ -18,23 +18,14 @@ const buttonVariants = cva(
   "disabled:opacity-50",
   "active:scale-[98%] transition",
   "focus:outline-none",
-  "focus:ring-2",
-  "focus:ring-offset-2",
-  "focus-visible:outline-none",
-  "focus-visible:ring-2",
-  "focus-visible:ring-offset-2",
-  "focus:ring-primary-200",
-  "ring-offset-primary-200",
-  "focus-visible:ring-primary-200",
 ], {
     variants: {
-      
       variant: {
         default: "bg-primary-700 text-white hover:bg-primary-700/90",
         destructive:
           "bg-red-500 text-white hover:bg-red-500/90",
         outline:
-          "border border-primary-700 bg-white text-primary-700 hover:border-primary-700 hover:border-primary-500",
+          "border border-primary-700 bg-inherit text-primary-700 hover:border-primary-700 hover:border-primary-500",
         secondary: [
           "focus:ring-secondary-200",
           "ring-offset-secondary-200",
@@ -51,6 +42,21 @@ const buttonVariants = cva(
         icon: "h-10 w-10",
       },
     },
+    compoundVariants: [
+      {
+        variant: ['default', 'destructive', 'outline', 'secondary'],
+        className: [
+          "focus:ring-2",
+          "focus:ring-offset-2",
+          "focus-visible:outline-none",
+          "focus-visible:ring-2",
+          "focus-visible:ring-offset-2",
+          "focus:ring-primary-200",
+          "ring-offset-primary-200",
+          "focus-visible:ring-primary-200",
+        ]
+      }
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",

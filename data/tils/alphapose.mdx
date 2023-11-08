@@ -1,0 +1,60 @@
+---
+title: AlphaPose - Whole body Pose Estimation and Tracking in realtime
+description: AlphaPose is a system for performing accurate whole-body post estimation and tracking that running in realtime.
+cover: /tils/2023-11-08-10-12-20.png
+tags: ['AlphaPose', 'AI']
+publishedAt: 5/11/2023
+---
+> The post below is just a summarize version of a survey which I'm studying. The goal is to understand AlphaPose for my school project about Human fall detection.
+
+
+## Introduction
+
+Full body haman pose estimation is one of the fundamentals in computer visions field. With many different applications derived from it.
+
+<Callout>
+The survey only focus on top-down approach, which first detects human bounding boxes and then estimates the pose for each box.
+</Callout>
+
+#### Drawback
+- __Top down__ approach's performances are dominant on common benchmarks.
+- Detection state and esimator are separated so if Detection fail => No recover for the pose estimator.
+
+#### Resolve draw back 
+- Lower the detection confidence and NMS threshold _(can raise redundant boxes)_.
+- Eliminated redundant boxes by a parametric pose NMS _(Using novel pose distance metric to compare pose similarity)_.
+- Optimize with a data-diven approach .
+- Spped up top-down framework by a multi-stage concurrent pipeline in AlphaPose that enable running in realtime.
+
+#### Adopt Softargmax instead of Heatmap
+Heatmap is most use approach for represent keypoints in the current.
+##### Drawback of Heatmap
+- One of the major problem is __Quantization error__.
+- Unsuitable for __Localizeing keypoints__ of body, faces, hands simultaneously.
+- __Draw back__ - Although Heatmaps are mostly used for keypoint representation. However, its size is usually quater of the input image. 
+- Heatmap representation is discrete so it may miss the correct position (__not a problem in body-only estimation__. However not good for fine-level keypoints on hands, face).
+##### Solution
+Use __additional sub-networks__ for hand and face estimation and ROI-Align to enlarge the feature map are current solutions. However, both methods are computation expensive (especially for full body estimation).
+
+__AlphaPose__ use a novel summetric integral keypoints regression method that can localize keypoints in different scales accurately.
+
+    
+
+## Notes
+### ROI-Align
+Region of Interest Align - an improvement over ROI-Pooling method (a method for align and pool the features from regions of interst in to a fixed size feature map).
+
+__ROI-Pooling__
++ Input an image with corresponding feature map with ROIs (bounding boxes).
++ ROI-Pooling devides each ROI into fixed grid (2x2, 3x3, ..).
++ ROI-Pooling quantizes the location to the nearest feature map cell, and it pools the feature values in that cell.
++ Output a fixed-size representation for each ROI.
+
+__Improvement__
+
+Instead of quantizing the ROI locations on step 3,RO-Align uses bilinear interpolation to sample feature map at sub-pixel locations within the ROI and result in a more accurate alignment between the ROI and feature map.
+Then is typically pools or aggregates the features from the interpolated values to obtain a fixed-size representation for each ROI.
+
+- Improved spatial information.
+- Higher accurate localization of object boundaries which suitable for object detection task that previce object localization is crucial.
+

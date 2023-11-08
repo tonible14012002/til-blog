@@ -13,7 +13,7 @@ export const Layout = ({children}: PropsWithChildren) => {
                 fontSans.className
             )}
         >
-            <div className="h-10 w-full py-14">
+            <div className="w-full py-4 sm:py-8">
                 <Header/>
             </div>
             <main className="container flex-1">
