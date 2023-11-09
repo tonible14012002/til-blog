@@ -10,7 +10,7 @@ export const UnderConstructModal = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="p-0 border-none">
+            <DialogContent className="p-0 border-none !w-[600px]">
                 <Alert>
                     <AlertTitle>
                         Oops

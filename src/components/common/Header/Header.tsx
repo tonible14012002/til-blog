@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { NAVBAR_ROUTES } from "@/config/navbar"
@@ -9,11 +9,14 @@ import clsx from "clsx"
 import { Check, Loader2, Menu } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
+
+const MOBILE_NAV_HEIGHT = 72
 
 export const Header = () => {
 
     const { pathname } = useRouter()
+    const [ openMobileNav, setOpenMobileNav ] = useState(false)
 
     return (
         <div className="container flex justify-between items-center h-full">
@@ -40,30 +43,50 @@ export const Header = () => {
                 <SubscribeLetterDialog/>
             </div>
             <div className="sm:hidden block">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                <Dialog open={openMobileNav} onOpenChange={setOpenMobileNav}>
+                    <DialogTrigger asChild>
                         <div>
                             <Button className="w-10 px-0 h-10 text-primary-700" variant="ghost">
                                 <Menu/>
                             </Button>
                         </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent collisionPadding={16} sideOffset={16} className="min-w-[140px]">
-                        {NAVBAR_ROUTES.map((props) => (
-                            <DropdownMenuItem key={props.name} >
-                                <Link href={props.path} className={clsx("w-full", {"text-primary-700": pathname === props.path})}>
-                                    {props.name}
-                                </Link>
-                            </DropdownMenuItem>
-                        ))}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                    </DialogTrigger>
+                    <DialogContent
+                        blur={false}
+                        className={clsx(
+                            "w-full max-w-full h-full mt-[72px] border-none bg-background",
+                        )}
+                        // Allow click outside without closing dialog
+                        onPointerDownOutside={(e) => e.preventDefault()}
+                    >
+                        <DialogClose className="w-10 h-10 absolute right-4 -top-14" />
+                        <div className="space-y-px">
+                            {NAVBAR_ROUTES.map(r => (
+                                <button className="text-left block w-full h-fit py-3 transition" key={r.name}
+                                    onClick={() => setOpenMobileNav(false)}
+                                >
+                                    <Link href={r.path} className="block h-full w-full">
+                                        {r.name}
+                                    </Link>
+                                </button>
+                            ))}
+                            <Button className="w-full !mt-4" size="lg">
+                                Login
+                            </Button>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     )
 }
 
-const SubscribeLetterDialog = () => {
+interface SubscribeLetterDialog {
+    trigger?: ReactNode
+}
+
+const SubscribeLetterDialog = (props: SubscribeLetterDialog) => {
+    const { trigger } = props
 
     const [ loading, setLoading ] = useState(false)
     const [ success, setSuccess ] = useState(false)
@@ -75,11 +98,13 @@ const SubscribeLetterDialog = () => {
             onOpenChange={setOpen}
         >
             <DialogTrigger asChild>
-                <Button className="ml-4">
-                    Subscribe
-                </Button>
+                {trigger ?? (
+                    <Button className="ml-4">
+                        Subscribe
+                    </Button>
+                )}
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="!w-[600px]">
                 <DialogTitle>
                     Subscribe to the newsletter
                 </DialogTitle>
