@@ -28,7 +28,7 @@ export const BlogCard = (props: BlogCardProps) => {
           <h3 className="font-extrabold line-clamp-2">
             {title}
           </h3>
-          <p className="line-clamp-2 text-sm text-mute-foreground">
+          <p className="line-clamp-3 sm:line-clamp-2 text-sm text-mute-foreground">
             {description}
           </p>
           <div className="flex gap-2 flex-wrap">

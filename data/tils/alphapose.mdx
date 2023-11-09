@@ -7,7 +7,6 @@ publishedAt: 5/11/2023
 ---
 > The post below is just a summarize version of a survey which I'm studying. The goal is to understand AlphaPose for my school project about Human fall detection.
 
-
 ## Introduction
 
 Full body haman pose estimation is one of the fundamentals in computer visions field. With many different applications derived from it.
@@ -16,45 +15,81 @@ Full body haman pose estimation is one of the fundamentals in computer visions f
 The survey only focus on top-down approach, which first detects human bounding boxes and then estimates the pose for each box.
 </Callout>
 
-#### Drawback
+## Top-Down Framework
+#### Limitation
 - __Top down__ approach's performances are dominant on common benchmarks.
 - Detection state and esimator are separated so if Detection fail => No recover for the pose estimator.
 
-#### Resolve draw back 
+#### Solutions
 - Lower the detection confidence and NMS threshold _(can raise redundant boxes)_.
 - Eliminated redundant boxes by a parametric pose NMS _(Using novel pose distance metric to compare pose similarity)_.
 - Optimize with a data-diven approach .
-- Spped up top-down framework by a multi-stage concurrent pipeline in AlphaPose that enable running in realtime.
+- Speed up top-down framework by a multi-stage concurrent pipeline in AlphaPose that enable running in realtime.
 
-#### Adopt Softargmax instead of Heatmap
-Heatmap is most use approach for represent keypoints in the current.
-##### Drawback of Heatmap
+## AlphaPose Improvement
+- __AlphaPose__ use a novel summetric integral keypoints regression method that can localize keypoints in different scales accurately.
+- Extend pose guided proposal generator to in coporate with Multi-Domain Knowledge Distillation - incorporate training data from separate body part datasets.
+- Novel part-guided humanproposal generator (PGPG) to augment training samples.
+- Annotate new whole-body post estimation benchmark (136 points for each person).
+- A Pose-aware identity embedding - enable simultaneous human pose tracking. A person re-id branch is attached on pose estimator.
+
+This design allowing realtime Pose estimation and tracking in an unified manner.
+
+## Whole-Body Keypoint Localization
+#### Limitation of many Previous Methods
+Goal: unified detectoin of body, face, hand, foot keypoints for multi-person.
+- __Openpose__ - detecs body keypoints using PAFs. Then, estimate face landmarks and hand keypoints using two separate networks -> Such design consumes extra computation resources and time inefficient. 
+- __Hidalgo__ using single network for whole body estimate -> Output resolution is limited and decrease performence on fine-level keypoints (faces, handes).
+- __ZoomNet__ - ROIAlign to crop hand, face region on feature maps then predict keypoints on resized one.
+
+All methods above use heatmap for keypoints representation.
+
+#### Heatmap Limitation
 - One of the major problem is __Quantization error__.
-- Unsuitable for __Localizeing keypoints__ of body, faces, hands simultaneously.
+- Unsuitable for __Localizing keypoints__ of body, faces, hands simultaneously.
 - __Draw back__ - Although Heatmaps are mostly used for keypoint representation. However, its size is usually quater of the input image. 
 - Heatmap representation is discrete so it may miss the correct position (__not a problem in body-only estimation__. However not good for fine-level keypoints on hands, face).
-##### Solution
-Use __additional sub-networks__ for hand and face estimation and ROI-Align to enlarge the feature map are current solutions. However, both methods are computation expensive (especially for full body estimation).
 
-__AlphaPose__ use a novel summetric integral keypoints regression method that can localize keypoints in different scales accurately.
+> Use __additional sub-networks__ for hand and face estimation and ROI-Align to enlarge the feature map are current solutions. However, both methods are computation expensive (especially for full body estimation).
 
-    
+#### Adopt Soft-Argmax For keypoints Representation
+Many works have proved that __Soft-argmax__ based integral regression is more suitable for whole-body keypoints. However, studies show some drawback of using soft-argmax.
+
+###### Issues
+    + Asymmetric gradient Problem
+    + Size-dependent Keypoint Scoring Problem
+<Callout>
+__AlphaPose Solved these problems ann provided a new regression method for higher accuracy__
+</Callout>
+
+## Multi Person Pose Tracking
+Pose Tracking is extended from multi person pose estimation in videos. It aim to linking corresponding individual body across multiple frames and output a sequence of poses and how it changed over time. A pose Tracker is usefull for action recognition tasks. 
+Similar to Pose estimation, it also categorized in to __Topdown__ and __BottomUp__ approac
+
+#### Limitation Of Previous Methods
+- __Build temporal and Spatial graphs and solving optimization problem__ -> prevent graph-cut optimization from running in online manner -> Time consumming, memory-inefficient
+- __Ultilizes 3D MaskRCNN to estimate person tube, poses simultaneously__ -> Input a whole video sequence -> enable online tracking.
+- __Forward and Backward bounding box propagation strategy to eliminate essue of missed detection__  -> The same as above.
+
+These methods rely on the spatial continuity of poses only.
+#### Adopt Re-ID feature
+- A pose-guided re-ID feature extraction is designed to avoid potential background noise.
+- Multi-stage information merging method to ultilize boxes, poses, re-ID features simultaneously.
 
 ## Notes
-### ROI-Align
-Region of Interest Align - an improvement over ROI-Pooling method (a method for align and pool the features from regions of interst in to a fixed size feature map).
+- __Confidence Thresshold__
+- __Localizing Keypoints__: process of joining keypoints (determine the relative position of keypoints in a human body).
+- __NMS__ - Nonmax Supression: Eliminate the redundant Bounding box.
+    + Discard all boxes with confidence < some threshold.
+    + While there are any remaining boxes __Pick__ the highest confidence and __Discard__ any remain box with IoU > 0.5 (high overlap) with the box just picked.
 
-__ROI-Pooling__
-+ Input an image with corresponding feature map with ROIs (bounding boxes).
-+ ROI-Pooling devides each ROI into fixed grid (2x2, 3x3, ..).
-+ ROI-Pooling quantizes the location to the nearest feature map cell, and it pools the feature values in that cell.
-+ Output a fixed-size representation for each ROI.
+- __ROI-Pooling__ -  align and pool the features from regions of interst in to a fixed size feature map
+    + Input an image with corresponding feature map with ROIs (bounding boxes).
+    + ROI-Pooling devides each ROI into fixed grid (2x2, 3x3, ..).
+    + ROI-Pooling quantizes the location to the nearest feature map cell, and it pools the feature values in that cell.
+    + Output a fixed-size representation for each ROI.
 
-__Improvement__
-
-Instead of quantizing the ROI locations on step 3,RO-Align uses bilinear interpolation to sample feature map at sub-pixel locations within the ROI and result in a more accurate alignment between the ROI and feature map.
-Then is typically pools or aggregates the features from the interpolated values to obtain a fixed-size representation for each ROI.
-
-- Improved spatial information.
-- Higher accurate localization of object boundaries which suitable for object detection task that previce object localization is crucial.
+- __ROI-Align__ - __Region of Interest Align__, an improvement over ROI-Pooling method. Instead of quantizing the ROI locations on step 3,RO-Align uses bilinear interpolation to sample feature map at sub-pixel locations within the ROI and result in a more accurate alignment between the ROI and feature map. Then is typically pools or aggregates the features from the interpolated values to obtain a fixed-size representation for each ROI.
+    + Improved spatial information.
+    + Higher accurate localization of object boundaries which suitable for object detection task that previce object localization is crucial.
 

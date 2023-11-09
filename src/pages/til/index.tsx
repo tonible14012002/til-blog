@@ -12,14 +12,14 @@ interface TilPageProps {
 export default function TilPage ({tils}: TilPageProps) {
     return (
         <div className="mt-8">
-            <section className="sm:pl-20">
+            <section className="lg:px-20">
                 <h1 className="drop-shadow-md">Til</h1>
                 <p className="sm mt-5 text-mute-foreground">
                     This site contain notes, summary of knownledge i learned
                 </p>
                 <Separator className="my-10 sm:my-8"/>
             </section>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-8 sm:px-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-8 lg:px-20">
                 {tils.map((tilProps) => {
                         return(
                         <Link

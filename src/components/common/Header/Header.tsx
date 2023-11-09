@@ -51,7 +51,7 @@ export const Header = () => {
                     <DropdownMenuContent collisionPadding={16} sideOffset={16} className="min-w-[140px]">
                         {NAVBAR_ROUTES.map((props) => (
                             <DropdownMenuItem key={props.name} >
-                                <Link href={props.path} className={clsx({"text-primary-700": pathname === props.path})}>
+                                <Link href={props.path} className={clsx("w-full", {"text-primary-700": pathname === props.path})}>
                                     {props.name}
                                 </Link>
                             </DropdownMenuItem>

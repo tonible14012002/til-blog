@@ -17,7 +17,7 @@ module.exports = {
       },
       screens: {
         layout: "1024px",
-        blog: "640px"
+        md: "800px"
       },
     },
     extend: {

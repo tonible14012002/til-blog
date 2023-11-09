@@ -73,10 +73,10 @@ const components: Record<string, React.FC<any>> = {
     />
   ),
   ul: ({ className, ...props }) => (
-    <ul className={cn("my-4 ml-2 sm:ml-4 list-disc", className)} {...props} />
+    <ul className={cn("my-4 ml-2 sm:ml-2 list-disc", className)} {...props} />
   ),
   ol: ({ className, ...props }) => (
-    <ol className={cn("my-4 ml-4 list-decimal", className)} {...props} />
+    <ol className={cn("my-4 ml-2 list-decimal", className)} {...props} />
   ),
   li: ({ className, ...props }) => (
     <li className={cn("mt-1", className)} {...props} />
