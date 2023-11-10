@@ -2,10 +2,11 @@ import { format } from "date-fns"
 import { BlogTag } from "../BlogTag"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import Image from "next/image"
-import { Dot } from "lucide-react"
+import { ChevronLeft, Dot } from "lucide-react"
 import { MDX } from "contentlayer/core"
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { Mdx } from "@/components/ui/mdx-component"
+import { Button } from "@/components/ui/button"
 
 
 interface  BlogWrapperProps {
@@ -22,7 +23,7 @@ interface  BlogWrapperProps {
 export const BlogWrapper = (props: BlogWrapperProps) => {
     const { title, publishedAt, mdx, tags, readingTime, cover } = props
     return (
-        <div className="mt-8 max-w-blog mx-auto">
+        <div className="relative mt-8 max-w-blog mx-auto">
             <div className="space-y-2">
                 <div className="flex gap-0.5 text-mute-foreground ">
                     <p className="w-fit text-sm lg:text-base">Published at {format(new Date(publishedAt), "MMM dd, yyyy")}</p>

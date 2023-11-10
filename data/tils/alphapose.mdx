@@ -68,7 +68,7 @@ Similar to Pose estimation, it also categorized in to __Topdown__ and __BottomUp
 
 #### Limitation Of Previous Methods
 - __Build temporal and Spatial graphs and solving optimization problem__ -> prevent graph-cut optimization from running in online manner -> Time consumming, memory-inefficient
-- __Ultilizes 3D MaskRCNN to estimate person tube, poses simultaneously__ -> Input a whole video sequence -> enable online tracking.
+- __Ultilizes 3D MaskRCNN to estimate person tube, poses simultaneously__ -> Input a whole video sequence -> disable online tracking.
 - __Forward and Backward bounding box propagation strategy to eliminate essue of missed detection__  -> The same as above.
 
 These methods rely on the spatial continuity of poses only.

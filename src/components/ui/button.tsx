@@ -32,7 +32,7 @@ const buttonVariants = cva(
           "focus-visible:ring-secondary-200",
           "bg-secondary-700 text-white hover:bg-secondary-700/80",
         ],
-        ghost: "hover:bg-stone-100 hover:text-primary-700",
+        ghost: "hover:bg-neutral-100 hover:text-secondary-700",
         link: "underline-offset-4 hover:underline decoration-primary-700",
       },
       size: {

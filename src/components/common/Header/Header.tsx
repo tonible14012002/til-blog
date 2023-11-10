@@ -27,7 +27,7 @@ export const Header = () => {
     })
 
     return (
-        <div className="container flex justify-between items-center h-full">
+        <div className="relative bg-background z-10 container flex justify-between items-center h-full">
             <Link className="text-left flex gap-3 text-lg items-center font-extrabold"
                 href={ROUTES.HOME}
             >
@@ -45,29 +45,29 @@ export const Header = () => {
                     >
                         <Menu/>
                     </Toggle>
-                    <div
-                        className={clsx(
-                            "w-full border-none bg-background p-4 z-50",
-                            "fixed",
-                            "inset-0 top-[72px]",
-                            {
-                                "block": openMobileNav,
-                                "hidden": !debouncOpenMobileNav,
-                                "animate-in": openMobileNav,
-                                "animate-out": !openMobileNav,
-                                "fade-out-0": !openMobileNav,
-                                "fade-in-100": openMobileNav,
-                                "zoom-out-95": !openMobileNav,
-                                "zoom-in-95": openMobileNav,
-                                // "slide-out-to-bottom-[48%]": !openMobileNav,
-                                // "slide-in-from-bottom-[48%]": openMobileNav,
-                            }
-                        )}
-                    >
-                        <MobileNav 
-                            onItemClick={() => setOpenMobileNav(false)}
-                        />
-                    </div>
+                    {debouncOpenMobileNav && (
+                        <div
+                            className={clsx(
+                                "w-full border-none bg-background p-4 z-50",
+                                "fixed -z-10",
+                                "inset-0 top-[72px]",
+                                {
+                                    "animate-in": openMobileNav,
+                                    "animate-out": !openMobileNav,
+                                    "fade-out-0": !openMobileNav,
+                                    "fade-in-100": openMobileNav,
+                                    "zoom-out-95": !openMobileNav,
+                                    "zoom-in-95": openMobileNav,
+                                    "slide-out-to-top-[10%]": !openMobileNav,
+                                    "slide-in-from-top-[10%]": openMobileNav,
+                                }
+                            )}
+                        >
+                            <MobileNav 
+                                onItemClick={() => setOpenMobileNav(false)}
+                            />
+                        </div>
+                    )}
                 </>
             ): (
                 <div className="flex">
