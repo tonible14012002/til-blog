@@ -16,10 +16,10 @@ export const MobileNav = (props: MobileNavProps) => {
     return (
         <div className="space-y-px">
             {NAVBAR_ROUTES.map(r => (
-                <button className="text-left block w-full h-fit py-3 transition" key={r.name}
+                <button className="text-left block w-full h-fit transition" key={r.name}
                     onClick={onItemClick}
                 >
-                    <Link href={r.path} className="block h-full w-full">
+                    <Link href={r.path} className="block py-3 h-full w-full">
                         {r.name}
                     </Link>
                 </button>

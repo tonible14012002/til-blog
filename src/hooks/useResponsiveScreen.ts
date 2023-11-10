@@ -52,9 +52,12 @@ export const useResponsiveScreen = (params?: UseResponsiveScreenParams) => {
     }, [desktop, mobile, tablet])
 
     return {
-        isMobile: isMobile && !isTablet && !isDesktop,
-        isTablet: !isMobile && isTablet && !isDesktop,
-        isDesktop: !isMobile && !isTablet && isDesktop,
+        // isMobile: isMobile && !isTablet && !isDesktop,
+        // isTablet: !isMobile && isTablet && !isDesktop,
+        // isDesktop: !isMobile && !isTablet && isDesktop,
+        isMobile, 
+        isTablet: !isMobile && isTablet,
+        isDesktop: !isMobile && !isTablet,
         loading
     }
 }

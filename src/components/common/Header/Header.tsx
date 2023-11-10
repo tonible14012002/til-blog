@@ -13,15 +13,17 @@ import { MobileNav } from "./MobileNav"
 import { useResponsiveScreen } from "@/hooks/useResponsiveScreen"
 import { Toggle } from "@/components/ui/toggle"
 import { SubscribeLetterDialog } from "./SubscribeLetterDialog"
+import { useDebounce } from "@dwarvesf/react-hooks"
 
 export const Header = () => {
 
     const { pathname } = useRouter()
     const [ openMobileNav, setOpenMobileNav ] = useState(false)
-    const { isMobile } = useResponsiveScreen({
+    const debouncOpenMobileNav = useDebounce(openMobileNav, 50)
+    const { isMobile, isTablet, isDesktop } = useResponsiveScreen({
         mobile: 640,
         tablet: 800,
-        desktop: 1200
+        desktop: 1000
     })
 
     return (
@@ -35,28 +37,38 @@ export const Header = () => {
                 <p>Nam Anh</p>
             </Link>
             {isMobile ? (
-                <div className="sm:hidden block">
-                    <Dialog open={openMobileNav} onOpenChange={setOpenMobileNav}>
-                        <DialogTrigger>
-                            <Toggle pressed={openMobileNav} className="w-10 px-0 h-10 text-primary-700">
-                                <Menu/>
-                            </Toggle>
-                        </DialogTrigger>
-                        <DialogContent
-                            blur={false}
-                            className={clsx(
-                                "w-full max-w-full h-full mt-[72px] border-none bg-background",
-                            )}
-                            // Allow click outside without closing dialog
-                            onPointerDownOutside={(e) => e.preventDefault()}
-                        >
-                            <DialogClose className="w-10 h-10 absolute right-4 -top-14" />
-                            <MobileNav 
-                                onItemClick={() => setOpenMobileNav(false)}
-                            />
-                        </DialogContent>
-                    </Dialog>
-                </div>
+                <>
+                    <Toggle
+                        pressed={openMobileNav}
+                        onPressedChange={setOpenMobileNav}
+                        className="w-10 px-0 h-10 text-primary-700"
+                    >
+                        <Menu/>
+                    </Toggle>
+                    <div
+                        className={clsx(
+                            "w-full border-none bg-background p-4 z-50",
+                            "fixed",
+                            "inset-0 top-[72px]",
+                            {
+                                "block": openMobileNav,
+                                "hidden": !debouncOpenMobileNav,
+                                "animate-in": openMobileNav,
+                                "animate-out": !openMobileNav,
+                                "fade-out-0": !openMobileNav,
+                                "fade-in-100": openMobileNav,
+                                "zoom-out-95": !openMobileNav,
+                                "zoom-in-95": openMobileNav,
+                                // "slide-out-to-bottom-[48%]": !openMobileNav,
+                                // "slide-in-from-bottom-[48%]": openMobileNav,
+                            }
+                        )}
+                    >
+                        <MobileNav 
+                            onItemClick={() => setOpenMobileNav(false)}
+                        />
+                    </div>
+                </>
             ): (
                 <div className="flex">
                     {NAVBAR_ROUTES.map((props) => (
