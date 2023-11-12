@@ -45,7 +45,7 @@ export const Header = () => {
                     >
                         <Menu/>
                     </Toggle>
-                    {debouncOpenMobileNav && (
+                    {(openMobileNav || debouncOpenMobileNav) && (
                         <div
                             className={clsx(
                                 "w-full border-none bg-background p-4 z-50",
@@ -56,10 +56,10 @@ export const Header = () => {
                                     "animate-out": !openMobileNav,
                                     "fade-out-0": !openMobileNav,
                                     "fade-in-100": openMobileNav,
-                                    "zoom-out-95": !openMobileNav,
-                                    "zoom-in-95": openMobileNav,
-                                    "slide-out-to-top-[10%]": !openMobileNav,
-                                    "slide-in-from-top-[10%]": openMobileNav,
+                                    // "zoom-out-95": !openMobileNav,
+                                    // "zoom-in-95": openMobileNav,
+                                    "slide-out-to-top-[5%]": !openMobileNav,
+                                    "slide-in-from-top-[5%]": openMobileNav,
                                 }
                             )}
                         >

@@ -1,0 +1,47 @@
+---
+title: Virtualize Convolutaional Neural Network With Heatmap - CAM
+description:  ...
+cover: /blogs/2023-11-10-17-50-58.png
+tags: ['AI', "Engineering"]
+publishedAt: 5/11/2023
+---
+> Heatmap is often used in visualizations task for presenting the impertance, activation levels of different parts of images. It is most used for Convolutaional Neural Network visualization
+
+
+<Callout>
+This post only focus on the CAM - Class Activation Maps method 
+</Callout>
+## Class Activaion Maps - CAM
+CAM is one of techniques for generating heatmaps to highlight class-specific regions of images. The highlighted incicating that the network is _"looking"_ at the right place when making classification decision
+
+#### Examples For NN Looking At Wrong Place
+- classify image as a 'train' but it only look at the 'train track' not the actual train.
+- classify an object by looking on other things that associate to the object but not looking at the objects.
+
+## Architecture
+<img src="/blogs/2023-11-12-20-16-02.png"/>
+- The example architecture above include some generic convolutional layers and result in 3 feature maps (in this example only).
+- Each feature map have height __v__ and width __u__
+- The output of GAP go through a dense neural network to make decision
+#### GAP Computation
+- GAP turn each feature map into single number, in example below it output 3 numbers.
+- In example above each GAP ouput is input to the NN to make decision.
+#### HeatMap from CAM
+The CAM operation take the sum of multiple of each GAP ouput with it corresponding feature map and output our Heatmap
+<img src="/blogs/2023-11-12-20-38-15.png"/>
+
+<br/>
+## Notes
+- __Feature map__ - is the output of a convolutional layer that representing specific features in the input image or feature map.
+- __Pooling layer__ - The layer sit behind the convolutional layer to downsize the feature map. It keep the most important parts and discarding the rest. Primarily, to reduce the overfitting rate that result in performance efficency in later layer due to the reduced size. The output of this layer is a smaller size of vector.
+    + __Max Pooling__ - use a small window (2x2, 3x3) slide over the input and filter the maximum only.
+    + __Average Pooling__ - Average value is taken.
+- __GAP__ - Global Average Pooling - Compute the average value of the whole featuremap and output only one number that represent the average activaion / presence of a specific pattern learned by the convolutional layers across entire spatial extent of the input.
+- __Softmax function__ - operator to transform previous layer's ouput into vector of probabilities. Usually used in multiclass classificaition.
+
+<img src="/blogs/2023-11-12-19-58-10.png" />
+
+
+## References 
+- [Learning Deep Features for Discriminative Localization](https://openaccess.thecvf.com/content_cvpr_2016/papers/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf)
+- [CNN Heat Maps: Class Activation Mapping (CAM)](https://glassboxmedicine.com/2019/06/11/cnn-heat-maps-class-activation-mapping-cam/)

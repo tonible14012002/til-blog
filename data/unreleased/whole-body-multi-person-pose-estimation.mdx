@@ -1,0 +1,19 @@
+---
+title: Whole Body Multi Person Pose Estimation Explained
+description: This post introduct the detail pose estimation used in AlphaPose
+cover: /blogs/2023-11-10-17-50-58.png
+tags: ['AI', "Engineering"]
+publishedAt: 5/11/2023
+---
+> The figure below illustrate the whole pipline used in Alphapose.
+<img src="/blogs/2023-11-10-17-52-10.png" />
+
+In Human Post Estimation problem, heatmap is the most used method for keypoints representation. However it raise a lot drawbacks because its oprator not differentiable so that prevents it traning from being end-to-end.
+Heatmap  has lower resolution than the input image due to the down sampleing steps in deep NN -> __Inevitable Quantitation errors__. Meanwhile, a higher resolution results in computational problem.
+
+## Integral Regression
+
+## Symmetric Integral Keypoints Regression
+
+#### Asymmetric Gradient Problem
+_-Soft-argmax__ turns heatmap based approaches into regression based approaches and enable end-to-end traning.

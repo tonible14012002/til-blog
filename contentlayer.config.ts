@@ -6,6 +6,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
+import remarkMath from "remark-math"
 
 export const Blog = defineDocumentType(() => ({
   name: 'Blog',
@@ -75,7 +76,7 @@ export default makeSource({
   contentDirPath: 'data',
   documentTypes: [Blog, Til],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkMath],
     rehypePlugins: [
       rehypeSlug,
       [
