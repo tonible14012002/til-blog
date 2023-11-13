@@ -27,7 +27,7 @@ export const Header = () => {
     })
 
     return (
-        <div className="relative bg-background z-10 container flex justify-between items-center h-full">
+        <div className="bg-background container flex justify-between items-center h-full">
             <Link className="text-left flex gap-3 text-lg items-center font-extrabold"
                 href={ROUTES.HOME}
             >
@@ -49,7 +49,7 @@ export const Header = () => {
                         <div
                             className={clsx(
                                 "w-full border-none bg-background p-4 z-50",
-                                "fixed -z-10",
+                                "fixed",
                                 "inset-0 top-[72px]",
                                 {
                                     "animate-in": openMobileNav,

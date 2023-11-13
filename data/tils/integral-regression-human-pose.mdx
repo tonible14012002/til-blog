@@ -1,0 +1,50 @@
+---
+title: Integral Human Pose Regression
+description:  ...
+cover: /blogs/2023-11-10-17-50-58.png
+tags: ['AI', "Engineering"]
+publishedAt: 5/11/2023
+---
+
+<Callout>
+Heatmap based are currently the most used method for Pose Estimation. However, despite its good performance, there are some issues sush as non-differentiable post-processing or quantization error...
+This post propose a simple __Integral operation__ for avoiding those issues as it is differrentiable, effiecient,...
+</Callout>
+
+## Heatmap Issues
+
+{/* #### Another Point Of View
+Pose estimation is essentially a regression problem -> it must be end-to-end training and continuous output.
+###### Issues
+- __Regression methods__ and __detection based methods are not effective for __2D Pose Estimation__. Possibly, because of the method dificulties.
+- __Regression methods__ are suitable for 3D pose estimation. However, the performamce still low. */}
+
+#### Operation
+Given heat map $$H(K)$$ for $$K th$$ joint. Known that each location in the heatmap represent the probability of the location being the joint.
+The final joint location coordinate is 
+<img src="/blogs/2023-11-13-12-16-13.png"/>
+In a simple term. It find the location with maximum value in the heatmap.
+
+#### Issues
+- The __taking-maximum__ operation is not differentiable -> cant be a component of learning -> prevents end-to-end traning.
+- Quantization Error - lower resolution than that of input image (Because of Pooling step) and it is limited by the quantization factor.
+- Large Heatmap can be used -> cost of extra storage, computation.
+
+## Integral Regression
+<Callout>
+Modifies the __Taking maximum__ operation to __taking-expectation__. So the joint is estimated as the integration of all locations in the heatmap, weighted by their probabilities (normalized from likelihoods).
+The Integral regression (Soft-argmax) is parameter free, only transforms the pose representation from heatmap to joint. __So it does not affect other algorithm and can be combined with any of them (or any tasks in the image below)__.
+</Callout>
+<img src="/blogs/2023-11-13-12-01-04.png"/>
+#### Advantages over Heatmap based
+- Enable End-to-end.
+- Output is continuous and up to arbitrary localization accuracy (solve the quantization problem).
+#### Operation
+Modify the __Max__ operation to take the __expectation__
+<img src="/blogs/2023-11-13-12-32-50.png"/>
+
+## Notes
+- __Quantization Erro__: Using discrete set for represent a continuous values.
+
+## References
+- [Integral Human Pose Regression](https://openaccess.thecvf.com/content_ECCV_2018/papers/Xiao_Sun_Integral_Human_Pose_ECCV_2018_paper.pdf)
