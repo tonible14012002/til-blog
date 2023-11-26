@@ -1,0 +1,32 @@
+---
+title: Introduction To Kafka - Event Streaming Platform
+---
+
+## Event Streaming
+Is the digital equilvalent of the human body's central nervous sytem. It's the foundation for the 'always-on' world (INcreaseingly software-denfined and automated).
+#### Use cases
+- Payments, financial transactions in real-time (Stock exchanges, abnks and insurances).
+- Track, monitor cars, trucks fleets, shipment, ...
+- Continuously capture, analysis Iot devices data.
+- Serve as the foundation for data platforms, event-driven architectures, and micoservices.
+#### Streaming Platform
+Kafka combines three key capabilities for self implement your use-cases for event streaming end-to-end with single battle-tested solution:
+- __Publish__ (write) and__Subscribe__ (read), including continuous import/export of your data from other systems.
+- __Store__ streams of events durably and reliably for as long as you want.
+- __Process__ streams of events as they occur or retrospectively.
+
+## How it work ?
+Kafka is distributed system (servers and clients) that communicate via a high-performance TCP network protocol __(not HTTP or WebSocket)__
+- It can be deployed on bare-metal hardware, virtual machines and containers ni on-premise as well as cloud environments.
+- Kafka servers is run as a server cluster
+	+ Storage Layer = Brokers
+	+ Kafka Connect = Continuously import and export data as event streams to integrate kafka with existing systems. (can be a relational Database, other kafka cluster...).
+- Kafka clients
+	+ Allow write distributed applications and microservices (read, write, process streams of events in parallel)
+	+ available in __Java__, __Scala__,
+	+ Higher-level kafka Stream lib for __Python__, __Go__,__C++__, ...
+
+## Features
+#### Publish and Subscribe Message
+#### Import - Export Data as Streams of Events with Kafka Connect
+#### 

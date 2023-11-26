@@ -8,6 +8,29 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
 
+export const Project = defineDocumentType(() => ({
+  name: 'Project',
+  filePathPattern: 'projects/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    title: { type: 'string', required: true },
+    publishedAt: { type: 'string', required: true },
+    description: { type: 'string', required: true },
+    cover: { type: 'string', required: true },
+    tags: { type: 'list', of: {type: 'string'} , required: true}
+  },
+  computedFields: {
+    readingTime: {
+      type: 'json',
+      resolve: (doc) => readingTime(doc.body.raw)
+    },
+    slug: {
+      type: 'string',
+      resolve: (doc) => doc._raw.sourceFileName.replace('.mdx', ''),
+    },
+  },
+}))
+
 export const Blog = defineDocumentType(() => ({
   name: 'Blog',
   filePathPattern: 'blogs/*.mdx',
@@ -74,7 +97,7 @@ function createTagCount(allBlogs: any[]) {
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Til],
+  documentTypes: [Blog, Til, Project],
   mdx: {
     remarkPlugins: [remarkGfm, remarkMath],
     rehypePlugins: [

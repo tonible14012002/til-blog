@@ -1,0 +1,67 @@
+---
+title: AlphaPose - Enhanced Full Body Estimation Model
+description: ...
+cover: /blogs/distribute-system-1-cover.png
+tags: ["Engineering", "Distribute"]
+publishedAt: 5/11/2023
+---
+
+## Introduction
+
+AlphaPose is a strong whole-Body Regional Multi-Person Pose Estimation and Tracking in Realtime.
+It is a very accurate Pose Estimation and being the first open-sourced system that can achieve 70+ mAP (72.3 mAP) on COCO dataset and 80+ mAP (82.1 mAP) on MPII dataset.
+AlphaPose followed the Top-Down Framework, which it first detect the human bounding boxes and then estimates the pose independently.
+Although this approach performance is dominant on commno benchmars. However, it still has some drawbacks. We easily recofnise that, since the detection stage and estimation stage are separated, which means if the detector fails, the pose estimator can not be recovered.
+
+To Solve these drawbacks of the Topdown approach, AlphaPose proposed a new methodology to make it efficient and reliable. For Alleviate the missing detection problem above. Lower the detectoin confidence and NMS threshold for providing a more candidates for subsequent pose estimation. After that the Resulted redundant poses from redundant boxes are then also be eliminated after go through a parametric pose NMS. Which introduces a novel pose distance metric to compare pose similarity. The pose distance metric is optimized using a data-driven approach. 
+
+Through experiments, Alphapose decided to adopt ZOLOV3-SPP it seem on par performance with the state-of-the-art detectors. For speed up the top-down approach furthermore, a multi-stage concurrent pipline is applied which allow the whole framework to run in realtime.
+
+
+## Whole Body Estimation
+As mentioned in the introduction, AlphaPose is designed for whole-body estimation. Which is a more challenging task as it faces several extra problems.One of those is the keypoints - representations task. Currently, the most used method is heatmap. Heatmap has some obvious drawbacks. It's size is usually the quater of the input image because of the lack of computation resources. Although it still a powerfull method. it is unsuitable in the whole-body estimate problem as it cannot localize both body, face, hands simutaneously efficiently. Because of the large scale varation across different body parts. Another problem is the Quantization error. The heatmap representation is discrete so  both the adjacent greids on the heatmap may miss the correct position of the keypoints.both the adjacent greids on the heatmap may miss the correct position of the keypoints. In a normal body estimation problem, this is fine but since AlphaPose aim for the whole-body estimation the heatmap is not efficent. AlphaPose propose a symmetric integral keypoints regression method that localize keypoints in different scales accurately. This method have the accuracy onpar with heatmap while eliminated the quantization error.
+
+For furthurmore generalize the model of the top-down framework, AlphaPose adopt a Multi-Domain Knowledge Distillation to incorporate training data from separate body part datasets. Also, to alleviate the domain gap between different datasets and the imperfect detection problem, Alphapose propose a nocel part-guided human proposal generator (PGPG) to augment traning samples. So that when learning the output distribution of a human detector for different posees, we can simulate the generation of human bounding boxes, producing a large sample of training data.
+
+For Body-Tracking, AlphaPose introduce a pose-awareidentity embeddning for pose tracking within its top=down framework. A person Re-ID branch is attached on the pose estimator and perform jointly pose estimation and human identification. With the aid of Pose-guided region attention, pose estimator now can perform accurately. And with this design the pose estimation and tracking can perform in realtime.
+
+
+NOTES:
+- Adopt Top-Down approach
+	+ Some drawback: unrecover the body estimtaion if the object detector fail
+	+ Solves: Lower the Detector confidence threshold and use NMS threshold to provide more candidates for subsequent pose estimation.
+		+ Resulted redundant poses from redundant boxes then continuous to be eliminated by __pose NMS__
+
+- Heatmap problem
+	+ Other do: use additional network for hand and face estimation  or adopt ROI-Align to enlarge the feature map (computational expensive).
+	+ Alphapose use a __Symmetric integral keypoints regresstion__ (enhanced Soft-argmax method).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

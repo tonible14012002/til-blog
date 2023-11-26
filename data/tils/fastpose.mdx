@@ -1,0 +1,37 @@
+---
+title: FastPose - Realtime Pose Estimation and Tracking
+description: Introduction to Fastpose and how it allow realtime pose estimation and track using scale-normalized Multi-task Network.
+cover: /blogs/distribute-system-1-cover.png
+tags: ['Engineering', 'AI']
+publishedAt: 11/15/2023
+---
+
+## FastPose
+#### Challenges
+- Occlusion, intense light adn rare poses.
+- Unconstrained videos such as camera motion, blur, view variants.
+
+__Previous method__ address single prelocated person (eplout pictorial structures model, following deep channels)
+
+#### Most used Method
+__Two-states method__ are most used in this problems. Firstly detect, crop person from the image, then perform the single person pose estimation in the croped patches.
+
+#### Issues
+- Two-stages methods are scale invariant. The second stage only focuses on the keypoint detection task on a fixed scale.
+- These methods cannot perform in real-time because of complex procedures (detection, cropping and scaling images, pose estimation).
+- ...
+
+## FastPose
+#### Aims
+- Peform Pose estimation.
+- Tracking towards realtime speed.
+#### Stack
+- Multi-Task Network (MTN): jointly optimizes Human detection, pose estimation and person Re-ID simutaneously.
+- Scale-Normalized paradigm is proposed to alleviate the scale variation problem for the multi-task network.
+- Occlusion-aware Re-ID strategy is designed for articulateed multi-person pose tracking in video.
+#### Main Contribution
+- With Re-ID feature, design and end-to-end MTN (Multi-task Network)
+- Propose new paradigm (Scale-normalized image and feature pyramid) to alleviating scale variation problem (bottleneck of unified top-down method in Pose Estimation).
+- Base on image-pyramidm ignore estremely small or large objects to mkake sizes of objects uniformly distributed in the exact range.
+- Combine feature pyramid networks (FPN) with scale distribution -> help the network to avoid multi-scale testing.
+- Pose information (output from above MTN) utilized to inder occlusion state and achieve the occlusion-aware Re-ID -> Dramatically reduct the ID switches during tracking.

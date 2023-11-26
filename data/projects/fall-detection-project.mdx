@@ -1,0 +1,94 @@
+---
+title: AlphaPose - Enhanced Full Body Estimation Model
+description: ...
+cover: /blogs/distribute-system-1-cover.png
+tags: ["Engineering", "AI", "Iot"]
+publishedAt: 26/11/2023
+---
+
+## 1. Introduction (2 trang) [Khoa’s survey](https://www.notion.so/Khoa-s-survey-556593aa337c45ea9c5c4c8a158fa87a?pvs=21) (T7 25/11)
+### 1.1 Motivation ✅
+### 1.3 Scope and Objectives of the Project ✅
+
+## 2. Technological Foundations (T7 25/11)
+### 2.1 Deep learning Basics @Nam Anh Bui ✅
+#### 2.1.1 Deep Learning Overview ( Classifier problem, detection … ) ✅
+##### 2.1.1.1 Neural Networks ✅
+##### 2.1.1.2 Convolutional Neural Networks (CNNs) ✅
+- Convolutional Operation ✅
+- Convolutional Neural Network ✅
+- Pooling Layer ✅
+- Feature Map ✅
+- Object Detector Problem [ ]
+
+##### 2.1.1.3 Graph Convolutional Network @Phú Xuân ✅
+
+### 2.2 Human Pose Estimation (T5, 30/11)
+#### 2.2.1 Data Preprocessing [Khoa’s survey](https://www.notion.so/Khoa-s-survey-556593aa337c45ea9c5c4c8a158fa87a?pvs=21)  ✅
+- Image Resizing and Normalization: Images are often resized to a specific input size suitable for the pose detection model. Normalization may be applied to standardize pixel values.
+- Data Augmentation: Techniques such as rotation, scaling, and flipping are used to augment the training dataset, improving the model's generalization.
+
+#### 2.2.2 Pose Detection Model: [Khoa’s survey](https://www.notion.so/Khoa-s-survey-556593aa337c45ea9c5c4c8a158fa87a?pvs=21) ✅
+- Convolutional Neural Network (CNN): Deep learning models, especially CNNs, are widely used for pose detection. The architecture may include multiple convolutional layers to extract hierarchical features.
+- Architectures for Pose Detection: Popular architectures include Hourglass Networks, OpenPose, PoseNet, and HRNet, each designed to capture spatial relationships and hierarchical features relevant to human pose.
+
+#### 2.2.3 Heatmap Regression: [Nam Anh survey](https://www.notion.so/Nam-Anh-survey-5eed290e1c6b495d8cd4d80111f08354?pvs=21) 
+- Joint Heatmaps: For 2D pose estimation, joint positions are often represented as heatmaps. Each heatmap corresponds to the likelihood of a joint's presence in a specific location.
+
+#### 2.2.4 Part Affinity Fields (PAFs): ✅
+- PAFs for Limb Connections: PAFs connect pairs of joints, indicating the likelihood of a limb existing between them. They help refine joint positions and capture the spatial relationships between joints.
+
+#### 2.2.5 Post-Processing: [Nam Anh survey](https://www.notion.so/Nam-Anh-survey-5eed290e1c6b495d8cd4d80111f08354?pvs=21) 
+- Non-Maximum Suppression (NMS): To remove redundant and closely located joint predictions, NMS is applied. It retains only the most confident predictions for each joint.
+
+#### 2.2.6 Skeleton Representation: [Nam Anh survey](https://www.notion.so/Nam-Anh-survey-5eed290e1c6b495d8cd4d80111f08354?pvs=21) 
+- Connecting Joints: After detecting joints, a skeleton representation is formed by connecting adjacent joints with lines, representing the limbs.
+
+#### 2.2.7 Output Format: Khoa
+- Joint Coordinates: The final output includes the estimated coordinates (x, y) of each joint in the image. In 3D pose estimation, depth information (z) is also included.
+
+#### 2.2.8 Multi-Person Pose Detection: @Phú Xuân ✅
+- Person Detection: In multi-person pose detection, a person detection model is often used to identify and locate individuals in the image before estimating their poses individually.
+
+#### 2.2.9 Attention Mechanisms (Optional): @Phú Xuân ✅
+- Attention for Body Parts: Some models may incorporate attention mechanisms to focus on specific body parts or regions of interest during the pose detection process.
+
+#### 2.2.10 Dataset @Phú Xuân ✅
+- Annotated Pose Dataset: Training and evaluating pose detection models require datasets with annotated images containing ground truth pose information.
+
+#### 2.2.11 Human Fall Detection [Khoa’s survey](https://www.notion.so/Khoa-s-survey-556593aa337c45ea9c5c4c8a158fa87a?pvs=21) 
+- 1.4 Traditional Approaches (smart watch, sensor, ...)
+- 1.5 Proposed Solution
+
+#### 2.2.12 Application @Phú Xuân ✅
+- Protocols
+- UI / UX
+- Web basic
+
+## 3. Methodologies (CN tuan sau)
+### 3.1 Frameworks
+- 1. ST-GCN (@Phú Xuân ) 
+- 2. Alphapose [Khoa’s survey](https://www.notion.so/Khoa-s-survey-556593aa337c45ea9c5c4c8a158fa87a?pvs=21) + @Nam Anh Bui 
+    
+### 3.2 Hardware @Phú Xuân 
+- 1. Jetson Xavier  
+    
+### 3.3 Application 
+- 1. React Native @khoa Truong
+- 2. Django @nam Anh Bui
+- 3. PostgreSQL @nam Anh Bui
+- 4. Cloudinary @Phú Xuân 
+- 5. Docker @Phú Xuân
+
+## 4. System Architecture
+![Screenshot 2023-11-26 at 22.52.43.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/7dc020f9-02f8-4f6e-96f4-90517771212e/bc78169c-8fd8-4582-9bd1-4fdeff5e3391/Screenshot_2023-11-26_at_22.52.43.png)
+
+- RSTP: Tim hieu protocol, cach hoat dong (co thong qua gateway, …) @Phú Xuân
+- Cloudinary + CDN?: Setup local…
+- Notification: [Nam Anh survey](https://www.notion.so/Nam-Anh-survey-5eed290e1c6b495d8cd4d80111f08354?pvs=21)
+- Api gateway: @khoa Truong
+- How device connect to wifi through mobile app.
+
+## 5. Evaluation
+## 6. Planning @khoa
+www.notion.so
